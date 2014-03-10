@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "StatusUpdate";
+}
+
+<h2>StatusUpdate</h2>
+<div id="statusUpdate">
+    Status:
+    <input type="text" id="status_update" name="status" placeholder="Enter Status Here..." />
+    <button onclick="updateStatus()">Update</button>
+    <div id="statusAlert" class="noStatusAlert" />
+</div>
+<script>
+    function updateStatus() {
+        var body = document.getElementById("status_update").value;
+        statusAlertClear();
+        FB.api('/me/feed', 'post', { message: body }, function (response) {
+            if (!response || response.error) {
+                statusAlertFail();
+            } else {
+                statusAlertSuccess();
+            }
+        });
+    }
+    function statusAlertSuccess() {
+        document.getElementById("statusAlert").class = "successStatusAlert";
+        document.getElementById("statusAlert").innerHTML = "status sent";
+    }
+
+    function statusAlertFail() {
+        document.getElementById("statusAlert").class = "failStatusAlert";
+        document.getElementById("statusAlert").innerHTML = "status could not be sent!";
+    }
+
+    function statusAlertClear() {
+        document.getElementById("statusAlert").class = "noStatusAlert";
+        document.getElementById("statusAlert").innerHTML = "";
+    }
+
+</script>

@@ -28,5 +28,12 @@ namespace MyStockBook.Controllers
 
             return View();
         }
+
+        public ActionResult StatusUpdate()
+        {
+            ViewBag.Message = "Change your statuss";
+
+            return View();
+        }
     }
 }
