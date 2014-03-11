@@ -24,7 +24,14 @@
                 <li class="@ActiveItem("Index", "Stocks", null)">@Html.ActionLink("Stocks", "Index", "Stocks")</li>
                 <li class="@ActiveItem("Index", "Calendar", null)">@Html.ActionLink("Calendar", "Index", "Calendar")</li>
             </ul>
-            <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true" style="padding-top: 15px;"></div>
+            <button onclick="logIn()">logIn</button>
         </div>
     </div>
 </div>
+<script>
+    function logIn() {
+        FB.login(function (response) {
+            // handle the response
+        }, { scope: ' publish_actions' });
+    }
+</script>
