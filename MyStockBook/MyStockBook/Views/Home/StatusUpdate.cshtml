@@ -7,6 +7,7 @@
     Status:
     <input type="text" id="status_update" name="status" placeholder="Enter Status Here..." />
     <button onclick="updateStatus()">Update</button>
+    <button onclick="log()">log</button>
     <div id="statusAlert" class="noStatusAlert" />
 </div>
 <script>
@@ -21,6 +22,13 @@
             }
         });
     }
+
+    function log() {
+        FB.login(function (response) {
+            // handle the response
+        }, { scope: ' publish_actions' });
+    }
+
     function statusAlertSuccess() {
         document.getElementById("statusAlert").class = "successStatusAlert";
         document.getElementById("statusAlert").innerHTML = "status sent";
