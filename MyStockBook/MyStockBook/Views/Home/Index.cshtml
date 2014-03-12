@@ -25,38 +25,45 @@
     <div id="statusAlert" class="noStatusAlert" />
 </div>
 <div id="friendAdd">
-    Add Friend:
-    <input type="text" id="friend_id" placeholder="Facebook ID/Username" />
-    <button onclick="addFriend()">Send Request</button>
-    <div id="friendResponse" />
+    <button onclick="addFriend()">Send Friend Request</button><div id="sendMessage">
+    <p>Send a message to a friend</p>
+    Recipient <input type="text" id="recipient" placeholder="Facebook ID/Username" />
+    <button onclick="sendMessage()"> Send Message</button>
 </div>
+
 <div id="newsFeed">
     News Feed:
     <div id="newsFeedResponse" />
 </div>
 <script>
+    function sendMessage() {
+        var friendName = document.getElementById("recipient").value;
+        FB.ui({
+            method: 'send',
+            to: friendName,
+            message: 'something',
+            link: 'https://www.google.com',
+        });
+    }
+
     function addFriend() {
-        var id = document.getElementById("friend_id").value;
-        document.getElementById("friendResponse").innerHTML = "";
+        var id = prompt("Enter FaceBook ID/UserName", "");
+
+        if (id != null && id !== "") {
         FB.ui({
             method: 'friends',
             id: id
-        }, function (response) {
-            if (!response || response.error) {
-                document.getElementById("friendResponse").innerHTML = "request not sent";
-            } else {
+            }, function (response) {});
             }
-        });
     }
 
     function updateStatus() {
         var body = document.getElementById("status_update").value;
-        statusAlertClear();
         FB.api('/me/feed', 'post', { message: body }, function (response) {
             if (!response || response.error) {
-                statusAlertFail();
+                alert("message not sent!");
             } else {
-                statusAlertSuccess();
+                alert("message sent");
             }
         });
     }
@@ -83,21 +90,6 @@
                 
             }
         });
-    }
-
-    function statusAlertSuccess() {
-        document.getElementById("statusAlert").class = "successStatusAlert";
-        document.getElementById("statusAlert").innerHTML = "status sent";
-    }
-
-    function statusAlertFail() {
-        document.getElementById("statusAlert").class = "failStatusAlert";
-        document.getElementById("statusAlert").innerHTML = "status could not be sent!";
-    }
-
-    function statusAlertClear() {
-        document.getElementById("statusAlert").class = "noStatusAlert";
-        document.getElementById("statusAlert").innerHTML = "";
     }
 
 </script>
