@@ -146,7 +146,10 @@
 
         Markit.QuoteService.prototype.success = function (jsonResult) {
             console.log('success');
-            var ChangePercent = Math.floor(jsonResult.ChangePercent)
+            var ChangePercent = Math.floor((jsonResult.ChangePercent) * 100);
+         
+            console.log(ChangePercent);
+            console.log(jsonResult.ChangePercent);
 
             if (ChangePercent > 0.00) {
                 $container = $("<span class=\"up\">");
