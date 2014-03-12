@@ -24,7 +24,27 @@
     <button onclick="updateStatus()">Post Status</button>
     <div id="statusAlert" class="noStatusAlert" />
 </div>
+<div id="friendAdd">
+    Add Friend:
+    <input type="text" id="friend_id" placeholder="Facebook ID/Username" />
+    <button onclick="addFriend()">Send Request</button>
+    <div id="friendResponse" />
+</div>
 <script>
+    function addFriend() {
+        var id = document.getElementById("friend_id").value;
+        document.getElementById("friendResponse").innerHTML = "";
+        FB.ui({
+            method: 'friends',
+            id: id
+        }, function (response) {
+            if (!response || response.error) {
+                document.getElementById("friendResponse").innerHTML = "request not sent";
+            } else {
+            }
+        });
+    }
+
     function updateStatus() {
         var body = document.getElementById("status_update").value;
         statusAlertClear();
