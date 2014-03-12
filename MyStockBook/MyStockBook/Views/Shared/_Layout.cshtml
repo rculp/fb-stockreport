@@ -29,13 +29,31 @@
     @RenderSection("featured", required: false)
 
     <div class="container">
-        @RenderBody()
+        <div class="login-only">
+            @RenderBody()
+        </div>  
         <hr />
         <div class="footer">
             <p>&copy; @DateTime.Now.Year - Dev Team 5</p>
         </div>
     </div>
-
+    <script type="text/javascript">
+        function showHideStatus() {
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    $('.logout-only').hide();
+                    $('.login-only').show();
+                } else if (response.status === 'not_authorized' ) {
+                    $('.logout-only').hide();
+                    $('.login-only').show();
+                } else {
+                    $('.login-only').hide();
+                    $('.logout-only').show();
+                }
+            });
+        }
+        
+    </script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

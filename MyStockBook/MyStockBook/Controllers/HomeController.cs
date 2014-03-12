@@ -10,7 +10,7 @@ namespace MyStockBook.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            ViewBag.Message = "MyStockBook allows you to manage your stock portfolio, your calendar and your Facebook friends - all at the same time.";
 
             return View();
         }

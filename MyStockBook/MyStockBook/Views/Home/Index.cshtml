@@ -5,55 +5,52 @@
 <link rel="stylesheet" type="text/css" href="~/Content/themes/default/ticker.css" />
 
 @section Scripts {
-<script type="text/javascript" src="~/Scripts/jquery.jstockticker-1.1.1.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#ticker").jStockTicker({ interval: 45 });
-    });
-</script>
+    <script type="text/javascript" src="~/Scripts/jquery.jstockticker-1.1.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#ticker").jStockTicker({ interval: 45 });
+        });
+    </script>
 }
 
 @section featured {
     <div class="jumbotron logout-only">
         <div class="container">
-            <h1>@ViewBag.Title.</h1>
+            <h1>Welcome to MyStockBook!</h1>
             <h2>@ViewBag.Message</h2>
             <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
+                To get started buying, selling, and networking, click the "Log In with Facebook" button.
             </p>
-            <a class="btn btn-large btn-success" href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
         </div>
     </div>
 }
 
 
 
-
+<br />
 <!-- Status Update Area -->
 <div id="statusUpdate">
     Status:
     <input type="text" id="status_update" name="status" placeholder="What's on your mind?" />
     <button onclick="updateStatus()">Post Status</button>
-    <div id="statusAlert" class="noStatusAlert" />
+    <div id="statusAlert" class="noStatusAlert"></div>
 </div>
 <div id="friendAdd">
-    <button onclick="addFriend()">Send Friend Request</button><div id="sendMessage">
-        <p>Send a message to a friend</p>
-        Recipient <input type="text" id="recipient" placeholder="Facebook ID/Username" />
-        <button onclick="sendMessage()"> Send Message</button>
-    </div>
+    <button onclick="addFriend()">Send Friend Request</button>
+</div>
+<div id="sendMessage">
+    <p>Send a message to a friend</p>
+    Recipient <input type="text" id="recipient" placeholder="Facebook ID/Username" />
+    <button onclick="sendMessage()"> Send Message</button>
+</div>
 
-    <div id="newsFeed">
-        News Feed:
-        <div id="newsFeedResponse" />
-    </div>
-
-    <div id="ticker" class="stockTicker">
-        <span id="quote" class="quote">Stock Quotes: </span>
-    </div>
+<div id="newsFeed">
+    News Feed:
+    <div id="newsFeedResponse"></div>
+</div>
+<div id="ticker" class="stockTicker">
+    <span id="quote" class="quote"> </span>
+</div>
 
     <script>
         function sendMessage() {
@@ -114,11 +111,11 @@
 
     </script>
 
-    
+
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.jstockticker-1.1.1.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/QuoteService.js"></script>>
+    <script type="text/javascript" src="~/Scripts/QuoteService.js"></script>
     <script type="text/javascript">
 
 
