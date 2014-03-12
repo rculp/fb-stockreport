@@ -30,6 +30,7 @@
     <button onclick="addFriend()">Send Request</button>
     <div id="friendResponse" />
 </div>
+<button onclick="news()">News</button>
 <script>
     function addFriend() {
         var id = document.getElementById("friend_id").value;
@@ -56,6 +57,15 @@
             }
         });
     }
+
+    function news() {
+        FB.api("/me/home", function (response) {
+            if (response && !response.error) {
+                alert(response.data[0].id);
+            }
+        });
+    }
+
     function statusAlertSuccess() {
         document.getElementById("statusAlert").class = "successStatusAlert";
         document.getElementById("statusAlert").innerHTML = "status sent";

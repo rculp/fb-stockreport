@@ -46,16 +46,17 @@
         });
     }
 
+
     function checkLogInStatus() {
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 //document.getElementById("logIn").style.visibility="hidden";
                 //document.getelementbyid("logOut").style.visibility = "visible";
-                document.getElementById("logButtons").innerHTML = "<button id=\"logOut\" onclick=\"logOut()\">logvOut</button>";
+                document.getElementById("logButtons").innerHTML = "<button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
         } else if (response.status === 'not_authorized' ) {
             //document.getelementbyid("logIn").style.visibility="hidden";
             //document.getelementbyid("logOut").style.visibility = "visible";
-            document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">logOut</button>";
+            document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
         } else {
             //document.getelementbyid("logIn").style.visibility="visible";
             //document.getelementbyid("logOut").style.visibility = "hidden";
