@@ -30,7 +30,10 @@
     <button onclick="addFriend()">Send Request</button>
     <div id="friendResponse" />
 </div>
-<button onclick="news()">News</button>
+<div id="newsFeed">
+    News Feed:
+    <div id="newsFeedResponse" />
+</div>
 <script>
     function addFriend() {
         var id = document.getElementById("friend_id").value;
@@ -61,7 +64,23 @@
     function news() {
         FB.api("/me/home", function (response) {
             if (response && !response.error) {
-                alert(response.data[0].id);
+                for (var i = 0; i < 15; i++) {
+                    if (response.data[i].from.name) {
+                        document.getElementById("newsFeedResponse").innerHTML += "<b>"+response.data[i].from.name + "</b><br>";
+                    }
+                    if (response.data[i].message) {
+                        document.getElementById("newsFeedResponse").innerHTML += response.data[i].message+ "<br>";
+                    }
+                    if (response.data[i].name){
+                        document.getElementById("newsFeedResponse").innerHTML += "<i>"+response.data[i].name+"</i><br>";
+                    }
+                    if (response.data[i].story) {
+                        document.getElementById("newsFeedResponse").innerHTML += "<i>" + response.data[i].story + "</i><br>";
+                    }
+                   
+                    document.getElementById("newsFeedResponse").innerHTML += "<br>";
+                }
+                
             }
         });
     }

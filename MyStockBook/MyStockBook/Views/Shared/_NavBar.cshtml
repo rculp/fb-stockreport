@@ -51,6 +51,7 @@
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 document.getElementById("logButtons").innerHTML = "<button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
+                news();
         } else if (response.status === 'not_authorized' ) {
             document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
         } else {
