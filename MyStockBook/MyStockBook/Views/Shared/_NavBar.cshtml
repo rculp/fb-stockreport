@@ -24,14 +24,48 @@
                 <li class="@ActiveItem("Index", "Stocks", null)">@Html.ActionLink("Stocks", "Index", "Stocks")</li>
                 <li class="@ActiveItem("Index", "Calendar", null)">@Html.ActionLink("Calendar", "Index", "Calendar")</li>
             </ul>
-            <button onclick="logIn()">logIn</button>
+            <div id="logButtons" onload="checkLogInStatus()">
+            </div>
         </div>
     </div>
 </div>
-<script>
+<script type="text/javascript">
+
     function logIn() {
         FB.login(function (response) {
             // handle the response
+            checkLogInStatus();
         }, { scope: ' publish_actions' });
+
     }
+
+    function logOut() {
+        FB.logout(function (response) {
+            // user is now logged out
+            checkLogInStatus();
+        });
+    }
+
+    function checkLogInStatus() {
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                //document.getElementById("logIn").style.visibility="hidden";
+                //document.getelementbyid("logOut").style.visibility = "visible";
+                document.getElementById("logButtons").innerHTML = "<button id=\"logOut\" onclick=\"logOut()\">logvOut</button>";
+        } else if (response.status === 'not_authorized' ) {
+            //document.getelementbyid("logIn").style.visibility="hidden";
+            //document.getelementbyid("logOut").style.visibility = "visible";
+            document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">logOut</button>";
+        } else {
+            //document.getelementbyid("logIn").style.visibility="visible";
+            //document.getelementbyid("logOut").style.visibility = "hidden";
+            document.getElementById("logButtons").innerHTML = "<button id=\"logIn\" onclick=\"logIn()\">log In</button>";
+        }
+        });
+    }
+
+    window.onload = function () {
+        checkLogInStatus();
+    }
+    
 </script>
