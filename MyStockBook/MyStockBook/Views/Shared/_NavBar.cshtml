@@ -35,7 +35,7 @@
         FB.login(function (response) {
             // handle the response
             checkLogInStatus();
-        }, { scope: ' publish_actions' });
+        }, { scope: 'publish_actions, publish_stream, read_stream' });
 
     }
 
@@ -50,16 +50,10 @@
     function checkLogInStatus() {
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
-                //document.getElementById("logIn").style.visibility="hidden";
-                //document.getelementbyid("logOut").style.visibility = "visible";
                 document.getElementById("logButtons").innerHTML = "<button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
         } else if (response.status === 'not_authorized' ) {
-            //document.getelementbyid("logIn").style.visibility="hidden";
-            //document.getelementbyid("logOut").style.visibility = "visible";
             document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
         } else {
-            //document.getelementbyid("logIn").style.visibility="visible";
-            //document.getelementbyid("logOut").style.visibility = "hidden";
             document.getElementById("logButtons").innerHTML = "<button id=\"logIn\" onclick=\"logIn()\">log In</button>";
         }
         });
