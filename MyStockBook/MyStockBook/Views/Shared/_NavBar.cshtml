@@ -51,11 +51,31 @@
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 document.getElementById("logButtons").innerHTML = "<button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
-        } else if (response.status === 'not_authorized' ) {
-            document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
-        } else {
-            document.getElementById("logButtons").innerHTML = "<button id=\"logIn\" onclick=\"logIn()\">log In</button>";
-        }
+                getProfileImage();
+            } else if (response.status === 'not_authorized' ) {
+                document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
+            } else {
+                document.getElementById("logButtons").innerHTML = "<button id=\"logIn\" onclick=\"logIn()\">log In</button>";
+            }
+        });
+    }
+
+    function getProfileImage() {
+
+        var $photo = $('.photo'),
+            $fbPhoto = $('img.fb-photo');
+
+        FB.api("/me/picture?width=40&height=40", function (response) {
+
+            var profileImage = response.data.url.split('https://')[1], //remove https to avoid any cert issues
+                randomNumber = Math.floor(Math.random() * 256);
+
+            //remove if there and add image element to dom to show without refresh
+            if ($fbPhoto.length) {
+                $fbPhoto.remove();
+            }
+            //add random number to reduce the frequency of cached images showing
+            $photo.append('<img class=\"fb-photo img-polaroid\" src=\"http://' + profileImage + '?' + randomNumber + '\">');
         });
     }
 

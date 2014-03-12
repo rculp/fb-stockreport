@@ -28,7 +28,23 @@
     <button onclick="addFriend()">Send Friend Request</button>
 </div>
 <button onclick="news()">News</button>
+<div id="sendMessage">
+    <p>Send a message to a friend</p>
+    Recipient <input type="text" id="recipient" placeholder="Facebook ID/Username" />
+    <button onclick="sendMessage()"> Send Message</button>
+</div>
+
 <script>
+    function sendMessage() {
+        var friendName = document.getElementById("recipient").value;
+        FB.ui({
+            method: 'send',
+            to: friendName,
+            message: 'something',
+            link: 'https://www.google.com',
+        });
+    }
+
     function addFriend() {
         var id = prompt("Enter FaceBook ID/UserName", "");
 
