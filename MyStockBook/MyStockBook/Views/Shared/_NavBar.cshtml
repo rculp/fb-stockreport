@@ -16,7 +16,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">MyStockBook</a>
+            <a class="navbar-brand" href="/Home/">MyStockBook</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -24,8 +24,7 @@
                 <li class="@ActiveItem("Index", "Stocks", null)">@Html.ActionLink("Stocks", "Index", "Stocks")</li>
                 <li class="@ActiveItem("Index", "Calendar", null)">@Html.ActionLink("Calendar", "Index", "Calendar")</li>
             </ul>
-            <div id="logButtons" onload="checkLogInStatus()">
-            </div>
+            <div class="nav-button float-right" id="logButtons" onload="checkLogInStatus()"></div>
         </div>
     </div>
 </div>
@@ -46,15 +45,14 @@
         });
     }
 
-
     function checkLogInStatus() {
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
-                document.getElementById("logButtons").innerHTML = "<button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
+                document.getElementById("logButtons").innerHTML = "<button id=\"logOut\" onclick=\"logOut()\">Log Out</button>";
         } else if (response.status === 'not_authorized' ) {
-            document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">log Out</button>";
+            document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">Log Out</button>";
         } else {
-            document.getElementById("logButtons").innerHTML = "<button id=\"logIn\" onclick=\"logIn()\">log In</button>";
+            document.getElementById("logButtons").innerHTML = "<button id=\"logIn\" onclick=\"logIn()\">Log In with Facebook</button>";
         }
         });
     }
