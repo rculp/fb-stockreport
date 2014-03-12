@@ -5,12 +5,12 @@
 <link rel="stylesheet" type="text/css" href="~/Content/themes/default/ticker.css" />
 
 @section Scripts {
-    <script type="text/javascript" src="~/Scripts/jquery.jstockticker-1.1.1.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#ticker").jStockTicker({ interval: 45 });
-        });
-    </script>
+<script type="text/javascript" src="~/Scripts/jquery.jstockticker-1.1.1.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#ticker").jStockTicker({ interval: 45 });
+    });
+</script>
 }
 
 @section featured {
@@ -39,18 +39,18 @@
     <button onclick="addFriend()">Send Friend Request</button>
 </div>
 <div id="sendMessage">
-    <p>Send a message to a friend</p>
-    Recipient <input type="text" id="recipient" placeholder="Facebook ID/Username" />
-    <button onclick="sendMessage()"> Send Message</button>
-</div>
+        <p>Send a message to a friend</p>
+        Recipient <input type="text" id="recipient" placeholder="Facebook ID/Username" />
+        <button onclick="sendMessage()"> Send Message</button>
+    </div>
 
-<div id="newsFeed">
-    News Feed:
+    <div id="newsFeed">
+        News Feed:
     <div id="newsFeedResponse"></div>
-</div>
-<div id="ticker" class="stockTicker">
+    </div>
+    <div id="ticker" class="stockTicker">
     <span id="quote" class="quote"> </span>
-</div>
+    </div>
 
     <script>
         function sendMessage() {
@@ -111,7 +111,7 @@
 
     </script>
 
-
+    
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.jstockticker-1.1.1.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
@@ -143,7 +143,10 @@
 
         Markit.QuoteService.prototype.success = function (jsonResult) {
             console.log('success');
-            var ChangePercent = Math.floor(jsonResult.ChangePercent)
+            var ChangePercent = Math.floor((jsonResult.ChangePercent) * 100);
+         
+            console.log(ChangePercent);
+            console.log(jsonResult.ChangePercent);
 
             if (ChangePercent > 0.00) {
                 $container = $("<span class=\"up\">");
