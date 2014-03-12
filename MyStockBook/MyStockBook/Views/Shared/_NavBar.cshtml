@@ -23,15 +23,57 @@
                 <li class="@ActiveItem("Index", "Home", null)">@Html.ActionLink("Home", "Index", "Home")</li>
                 <li class="@ActiveItem("Index", "Stocks", null)">@Html.ActionLink("Stocks", "Index", "Stocks")</li>
                 <li class="@ActiveItem("Index", "Calendar", null)">@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                <li class="loginButton" style="padding-top: 15px; padding-bottom: 15px;"><button onclick="facebookLogin()">logIn</button></li>
+                <li class="photo" style="padding-top: 8px;padding-bottom: 9px; padding-left:9px;"></li>
             </ul>
-            <button onclick="logIn()">logIn</button>
+            
+
         </div>
     </div>
 </div>
 <script>
-    function logIn() {
-        FB.login(function (response) {
-            // handle the response
-        }, { scope: ' publish_actions' });
+    function facebookLogin() {
+        FB.getLoginStatus(function (response) {
+
+            if (response.status === 'connected') {
+                // connected
+                getProfileImage();
+
+            } else if (response.status === 'not_authorized') {
+                //app not_authorized
+                FB.login(function (response) {
+                    if (response && response.status === 'connected') {
+                        getProfileImage();
+                    }
+                });
+
+            } else {
+                // not_logged_in to Facebook
+                FB.login(function (response) {
+                    if (response && response.status === 'connected') {
+                        getProfileImage();
+                    }
+                });
+            }
+        });
+    }
+
+    function getProfileImage() {
+
+        var $photo = $('.photo'),
+            $fbPhoto = $('img.fb-photo');
+
+        FB.api("/me/picture?width=40&height=40", function (response) {
+
+            var profileImage = response.data.url.split('https://')[1], //remove https to avoid any cert issues
+                randomNumber = Math.floor(Math.random() * 256);
+
+            //remove if there and add image element to dom to show without refresh
+            if ($fbPhoto.length) {
+                $fbPhoto.remove();
+            }
+            //add random number to reduce the frequency of cached images showing
+            $photo.append('<img class=\"fb-photo img-polaroid\" src=\"http://' + profileImage + '?' + randomNumber + '\">');
+        });
     }
 </script>
