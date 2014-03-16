@@ -90,17 +90,26 @@
                 if (response && !response.error) {
                     for (var i = 0; i < 15; i++) {
                         if (response.data[i].from.name) {
-                            document.getElementById("newsFeedResponse").innerHTML += "<b>" + response.data[i].from.name + "</b><br>";
+                            document.getElementById("newsFeedResponse").innerHTML += "<b>" + response.data[i].from.name + "</b>";
+                        }
+                        if (response.data[i].to) {
+                            document.getElementById("newsFeedResponse").innerHTML += "<b> -> " + response.data[i].to.data[0].name + "</b><br>";
+                        } else {
+                            document.getElementById("newsFeedResponse").innerHTML += "<br>";
                         }
                         if (response.data[i].message) {
                             document.getElementById("newsFeedResponse").innerHTML += response.data[i].message + "<br>";
+                        }             
+                        if (response.data[i].story) {
+                            document.getElementById("newsFeedResponse").innerHTML += "<i>" + response.data[i].story + "</i><br>";
+                        }
+                        if (response.data[i].picture) {
+                            document.getElementById("newsFeedResponse").innerHTML += "<img src='" + response.data[i].picture + "'/><br>";
                         }
                         if (response.data[i].name) {
                             document.getElementById("newsFeedResponse").innerHTML += "<i>" + response.data[i].name + "</i><br>";
                         }
-                        if (response.data[i].story) {
-                            document.getElementById("newsFeedResponse").innerHTML += "<i>" + response.data[i].story + "</i><br>";
-                        }
+
 
                         document.getElementById("newsFeedResponse").innerHTML += "<br>";
                     }
