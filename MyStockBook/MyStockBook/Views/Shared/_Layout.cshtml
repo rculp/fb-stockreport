@@ -56,6 +56,160 @@
     </script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        function sendMessage() {
+            FB.ui({
+                method: 'send',
+                link: 'http://vm344e.se.rit.edu/R1',
+            });
+        }
+
+        function addFriend() {
+            var id = prompt("Enter FaceBook ID/UserName", "");
+
+            if (id != null && id !== "") {
+                FB.ui({
+                    method: 'friends',
+                    id: id
+                }, function (response) { });
+            }
+        }
+
+        function addPhoto() {
+            var id = prompt("Enter URL of Photo", "");
+
+            if (id != null && id !== "") {
+                sendImage(id, "");
+            }
+        }
+
+        function sendImage(img_url, text) {
+            //Check to see if the user has authenticated the App.
+            FB.getLoginStatus(function (response) {
+
+                if (response.status === 'connected') {
+                    //If you want the user's Facebook ID or their access token, this is how you get them.
+                    var uid = response.authResponse.userID;
+                    var access_token = response.authResponse.accessToken;
+
+                    FB.api("/me/photos", 'post', { message: text, access_token: access_token, url: img_url }, function (response) {
+                        if (!response || response.error) {
+                            alert("Photo could not be uploaded. Please retry later.");
+                        } else {
+                            alert("Photo uploaded to Facebook!");
+                        }
+                    });
+
+                }
+            });
+        }
+
+        function updateStatus() {
+            var body = document.getElementById("status_update").value;
+            FB.api('/me/feed', 'post', { message: body }, function (response) {
+                if (!response || response.error) {
+                    alert("Status could not be updated. Please retry later.");
+                } else {
+                    alert("Status updated!");
+                }
+            });
+        }
+
+        function news() {
+            FB.api("/me/home", function (response) {
+                if (response && !response.error) {
+                    for (var i = 0; i < 15; i++) {
+                        if (response.data[i].from.name) {
+                            document.getElementById("newsFeedResponse").innerHTML += "<b>" + response.data[i].from.name + "</b>";
+                        }
+                        if (response.data[i].to) {
+                            document.getElementById("newsFeedResponse").innerHTML += "<b> -> " + response.data[i].to.data[0].name + "</b><br>";
+                        } else {
+                            document.getElementById("newsFeedResponse").innerHTML += "<br>";
+                        }
+                        if (response.data[i].message) {
+                            document.getElementById("newsFeedResponse").innerHTML += response.data[i].message + "<br>";
+                        }
+                        if (response.data[i].story) {
+                            document.getElementById("newsFeedResponse").innerHTML += "<i>" + response.data[i].story + "</i><br>";
+                        }
+                        if (response.data[i].picture) {
+                            document.getElementById("newsFeedResponse").innerHTML += "<img src='" + response.data[i].picture + "'/><br>";
+                        }
+                        if (response.data[i].name) {
+                            document.getElementById("newsFeedResponse").innerHTML += "<i>" + response.data[i].name + "</i><br>";
+                        }
+
+
+                        document.getElementById("newsFeedResponse").innerHTML += "<br>";
+                    }
+
+                }
+            });
+        }
+
+    </script>
+
+
+    <script type="text/javascript" src="~/Scripts/jquery.jstockticker-1.1.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/QuoteService.js"></script>
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            var tickerList = ["GOOG", "AAPL", "MSFT", "FB", "TWTR", "YHOO", "INTC", "CSCO"];
+
+            tickerList.forEach(function (ticker) {
+                new Markit.QuoteService(ticker, function (jsonResult) {
+
+                    //this.clearResult();
+
+                    //Catch errors
+                    if (!jsonResult || jsonResult.Message) {
+                        return;
+                    }
+
+                    this.success(jsonResult);
+
+                });
+            });
+
+        });
+
+        Markit.QuoteService.prototype.success = function (jsonResult) {
+            console.log('success');
+            var ChangePercent = Math.floor((jsonResult.ChangePercent) * 100);
+
+            console.log(ChangePercent);
+            console.log(jsonResult.ChangePercent);
+
+            if (ChangePercent > 0.00) {
+                $container = $("<span class=\"up\">");
+            }
+            else if (ChangePercent < 0.00) {
+                $container = $("<span class=\"down\">");
+            }
+            else {
+                $container = $("<span class=\"eq\">");
+            }
+
+            $container.append("<span class=\"quote\">" + jsonResult.Symbol + " </span>" + jsonResult.LastPrice + " " + this.formatChgPct(jsonResult.ChangePercent) + "\%</span>");
+
+            $("#quote").after($container);
+            $container.fadeIn('fast');
+
+        };
+
+        Markit.QuoteService.prototype.formatChgPct = function (chg) {
+            console.log('formatChgPct');
+            //the quote API returns negative numbers already,
+            //so we just need to add the + sign to positive numbers
+            return (chg <= 0) ? chg.toFixed(2) : "+" + chg.toFixed(2);
+        };
+
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 
