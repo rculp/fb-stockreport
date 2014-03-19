@@ -41,9 +41,12 @@
 <div id="sendMessage">
         <p>Send a message to a friend</p>
         <button onclick="sendMessage()"> Send Message</button>
-    </div>
+</div>
+<div id="addPhoto">
+    <button onclick="addPhoto()"> Add Photo</button>
+</div>
 
-    <div id="newsFeed">
+<div id="newsFeed">
         News Feed:
     <div id="newsFeedResponse"></div>
     </div>
@@ -68,6 +71,31 @@
                     id: id
                 }, function (response) { });
             }
+        }
+
+        function addPhoto() {
+            var id = prompt("Enter URL of Photo", "");
+
+            if (id != null && id !== "") {
+                sendImage(id, "");
+            }
+        }
+
+        function sendImage(img_url, text) {
+            //Check to see if the user has authenticated the App.
+            FB.getLoginStatus(function (response) {
+
+                if (response.status === 'connected') {
+                    //If you want the user's Facebook ID or their access token, this is how you get them.
+                    var uid = response.authResponse.userID;
+                    var access_token = response.authResponse.accessToken;
+
+                    FB.api("/me/photos", 'post', { message: text, access_token: access_token, url: img_url }, function (response) {
+                        console.log(response);
+                    });
+
+                }
+            });
         }
 
         function updateStatus() {
