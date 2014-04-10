@@ -24,6 +24,7 @@
         </div>
     </div>
 }
+
 <div id="ticker" class="stockTicker">
     <span id="quote" class="quote"> </span>
 </div>
@@ -73,12 +74,14 @@
 
 </div>
 
-@Html.BeginForm("Stock", "Stocks", FormMethod.Post, new { id = "stockSearchForm" }) {
-<div>
-    <label>Search:</label>
-    @Html.TextBox("symbolsearch")   
-</div>
+@using(@Html.BeginForm("Stock", "Stocks", FormMethod.Post, new { id = "stockSearchForm" })) {
+    <div>
+        <label>Search:</label>
+        @Html.TextBox("symbolsearch")
+    </div>
 }
+
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
