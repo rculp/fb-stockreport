@@ -73,16 +73,23 @@
 
 </div>
 
+@Html.BeginForm("Index", "Stocks", new { symbol = "AAPL"}, FormMethod.Post, new { id = "stockSearchForm" }) {
 <div>
     <label>Search:</label>
     <input type="text" id="symbolsearch" class="input" placeholder="Enter Company Name">
 </div>
-
+}
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
+    var symbol2;
+    $('#symbolsearch').bind("enterKey", function (e) {
+        $("#stockSearchForm").submit();
+        symbol2 = $("#stockSearchForm").val();
+    });
+
     $("#symbolsearch")
         .autocomplete({
             source: function (request, response) {
