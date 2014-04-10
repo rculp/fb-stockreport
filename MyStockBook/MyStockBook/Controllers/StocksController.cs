@@ -11,9 +11,9 @@ namespace MyStockBook.Controllers
         //
         // GET: /Stocks/
 
-        public ActionResult Index(String symbol)
+        public ActionResult Index(String symbolsearch)
         {
-            ViewBag.Symbol = symbol;
+            ViewBag.Symbol = symbolsearch;
             return View();
         }
 

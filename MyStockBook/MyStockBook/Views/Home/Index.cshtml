@@ -73,10 +73,10 @@
 
 </div>
 
-@Html.BeginForm("Index", "Stocks", new { symbol = "AAPL"}, FormMethod.Post, new { id = "stockSearchForm" }) {
+@Html.BeginForm("Index", "Stocks", FormMethod.Post, new { id = "stockSearchForm" }) {
 <div>
     <label>Search:</label>
-    <input type="text" id="symbolsearch" class="input" placeholder="Enter Company Name">
+    @Html.TextBox("symbolsearch")   
 </div>
 }
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
@@ -87,7 +87,6 @@
     var symbol2;
     $('#symbolsearch').bind("enterKey", function (e) {
         $("#stockSearchForm").submit();
-        symbol2 = $("#stockSearchForm").val();
     });
 
     $("#symbolsearch")
