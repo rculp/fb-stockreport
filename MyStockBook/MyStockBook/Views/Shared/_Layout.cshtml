@@ -161,11 +161,7 @@
     <script type="text/javascript">
 
         function graph() {
-
-            var sym = $.url().param('symbol') || 'GOOG';
-            var dur = $.url().param('duration') || 3650;
-
-            new Markit.InteractiveChartApi(sym, dur);
+            new Markit.InteractiveChartApi('@ViewBag.symbol', 3650);
         };
 
     </script>

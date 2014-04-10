@@ -27,6 +27,7 @@
 <div id="ticker" class="stockTicker">
     <span id="quote" class="quote"> </span>
 </div>
+
 <div class="row">
     <div class="col-md-2">
         <h3>Top 5 Stocks</h3>
@@ -72,6 +73,47 @@
 
 </div>
 
+<div>
+    <label>Search:</label>
+    <input type="text" id="symbolsearch" class="input" placeholder="Enter Company Name">
+</div>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+    $("#symbolsearch")
+        .autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "http://dev.markitondemand.com/api/v2/Lookup/jsonp",
+                    dataType: "jsonp",
+                    data: {
+                        input: request.term
+                    },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.Name + " (" + item.Exchange + ")",
+                                value: item.Symbol
+                            }
+                        }));
+                    }
+                });
+            },
+            minLength: 0,
+            select: function (event, ui) {
+                //console.log(ui.item);
+            },
+            open: function () {
+                //$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+            },
+            close: function () {
+                //$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        })
+    ;
+</script>
 
 
