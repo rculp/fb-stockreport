@@ -16,5 +16,11 @@ namespace MyStockBook.Controllers
             return View();
         }
 
+        public ActionResult Stock(String symbolsearch)
+        {
+            ViewBag.Symbol = symbolsearch;
+            return View();
+        }
+
     }
 }

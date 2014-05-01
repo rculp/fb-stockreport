@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = @ViewBag.symbol;
+}
+
+@section featured {
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>s
+    <script>
+        window.onload = function () {
+            graph();
+        };
+    </script>
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>@ViewBag.Title</h1>
+        </div>
+    </div>
+    <div id="chartDemoContainer" style="height: 500px; min-width: 500px; margin-bottom: 30px;" data-highcharts-chart="0"></div>
+}
+

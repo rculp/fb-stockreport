@@ -150,10 +150,23 @@
 
     </script>
 
-
+    
     <script type="text/javascript" src="~/Scripts/jquery.jstockticker-1.1.1.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Scripts/QuoteService.js"></script>
+    <script type="text/javascript" src="~/Scripts/purl.js"></script>
+    <script type="text/javascript" src="~/Scripts/highstock.js"></script>
+    <script type="text/javascript" src="~/Scripts/InteractiveChartApi.js"></script>
+
+    <script type="text/javascript">
+
+        function graph() {
+            new Markit.InteractiveChartApi('@ViewBag.symbol', 730);
+        };
+
+    </script>
+
+   
     <script type="text/javascript">
 
 
