@@ -252,6 +252,8 @@
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
     <Content Include="Content\themes\default\ticker.css" />
+    <Content Include="Content\themes\fullcalendar\fullcalendar.css" />
+    <Content Include="Content\themes\fullcalendar\fullcalendar.print.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -304,6 +306,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\highstock.js" />
     <Content Include="Scripts\html5shiv.js" />
     <Content Include="Scripts\InteractiveChartApi.js" />
@@ -314,6 +317,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery-ui.custom.min.js" />
     <Content Include="Scripts\jquery.jstockticker-1.1.1.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -325,6 +329,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\purl.js" />
     <Content Include="Scripts\QuoteService.js" />
     <Content Include="Web.config" />
@@ -369,8 +374,11 @@
     <Content Include="Views\Shared\_html5shiv.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
-    <Content Include="Views\Stocks\Index.cshtml" />
     <Content Include="Views\Stocks\Stock.cshtml" />
+    <Content Include="Views\Calendar\json\events.json" />
+    <Content Include="Views\Calendar\php\get-events.php" />
+    <Content Include="Views\Calendar\php\get-timezones.php" />
+    <Content Include="Views\Calendar\php\utils.php" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
