@@ -427,10 +427,6 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Stocks\Stock.cshtml" />
-    <Content Include="Views\Calendar\json\events.json" />
-    <Content Include="Views\Calendar\php\get-events.php" />
-    <Content Include="Views\Calendar\php\get-timezones.php" />
-    <Content Include="Views\Calendar\php\utils.php" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
