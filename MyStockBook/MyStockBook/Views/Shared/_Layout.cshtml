@@ -166,6 +166,65 @@
 
     </script>
 
+    <script type="text/javascript">
+        /**
+        * Makes call to markit for ticker and with setPrice as callback function
+        */
+        function getPrice(ticker) {
+            new QuoteService(ticker, setPrice);
+        }
+
+        /*
+        *Callback function for getPrice
+        */
+        function setPrice(jsonResult) {
+            //do something with jsonResult result, example:
+            alert(jsonResult.LastPrice + " " + jsonResult.Change);
+        }
+
+        /**
+        * Define the QuoteService.
+        * First argument is symbol (string) for the quote. Examples: AAPL, MSFT, JNJ, GOOG.
+        * Second argument is fCallback, a callback function executed onSuccess of API.
+        */
+        function QuoteService(sSymbol, fCallback) {
+            this.symbol = sSymbol;
+            this.fCallback = fCallback;
+            this.DATA_SRC = "http://dev.markitondemand.com/Api/v2/Quote/jsonp";
+            this.makeRequest();
+        };
+
+        /**
+        * Starts a new ajax request to the Quote API
+        */
+        QuoteService.prototype.makeRequest = function () {
+            //Abort any open requests
+            if (this.xhr) { this.xhr.abort(); }
+            //Start a new request
+            this.xhr = $.ajax({
+                data: { symbol: this.symbol },
+                url: this.DATA_SRC,
+                dataType: "jsonp",
+                success: this.handleSuccess,
+                error: this.handleError,
+                context: this
+            });
+        };
+
+        /**
+        * Ajax success callback. fCallback is the 2nd argument in the QuoteService constructor.
+        */
+        QuoteService.prototype.handleSuccess = function (jsonResult) {
+            this.fCallback(jsonResult);
+        };
+
+        /**
+        * Ajax error callback
+        */
+        QuoteService.prototype.handleError = function (jsonResult) {
+            console.error(jsonResult);
+        };
+    </script>
    
     <script type="text/javascript">
 
