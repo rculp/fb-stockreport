@@ -11,7 +11,6 @@
     @Html.Partial("_html5shiv")
 
     <link href="~/Content/ico/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
 </head>
 <body>
     <div id="fb-root"></div>
@@ -102,6 +101,13 @@
                     });
 
                 }
+            });
+        }
+
+        function getName() {
+            var $name = $('#displayname');
+            FB.api('/me', function (response) {
+                $name.val(response.name);
             });
         }
 
