@@ -11,6 +11,7 @@
     @Html.Partial("_html5shiv")
 
     <link href="~/Content/ico/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
 </head>
 <body>
     <div id="fb-root"></div>
@@ -270,6 +271,46 @@
             alert(jsonResult.LastPrice + " " + jsonResult.Change);
         }
 
+        QuoteService.prototype.success = function (jsonResult) {
+            var $container = $("<div class='hide' id='resultContainer' />");
+            $container.append("<h4>" + jsonResult.Name + " (" + jsonResult.Symbol + ")</h4>");
+            $container.append(this.renderResultTable(jsonResult));
+
+            $container.fadeIn('fast');
+        };
+
+        QuoteService.prototype.renderResultTable = function (jsonResult) {
+            var thead = $("#stockchartHead"),
+                tbody = $("#stockChartBody"),
+                tableHeadCells = [];
+            tableCells = [];
+
+            tableHeadCells.push("<tr>");
+            tableHeadCells.push("<th>Last Price</th>");
+            tableHeadCells.push("<th>Change</th>");
+            tableHeadCells.push("<th>Change Percent</th>");
+            tableHeadCells.push("<th>Change Percent YTD</th>");
+            tableHeadCells.push("<th>Last Traded</th>");
+            tableHeadCells.push("</tr>");
+
+            tableCells.push("<tr>");
+            tableCells.push("<td>$", jsonResult.LastPrice, "</td>");
+            tableCells.push("<td>", this.formatChgPct(jsonResult.Change), "</td>");
+            tableCells.push("<td>", this.formatChgPct(jsonResult.ChangePercent), "%</td>");
+            tableCells.push("<td>", jsonResult.ChangePercentYTD.toFixed(2), "%</td>");
+            tableCells.push("<td>", jsonResult.Timestamp, "</td>");
+            tableCells.push("</tr>");
+
+            thead.append(tableHeadCells.join(""));
+            tbody.append(tableCells.join(""));
+        };
+
+        QuoteService.prototype.formatChgPct = function (chg) {
+            //the quote API returns negative numbers already,
+            //so we just need to add the + sign to positive numbers
+            return (chg <= 0) ? chg.toFixed(2) : "+" + chg.toFixed(2);
+        };
+
         /**
         * Define the QuoteService.
         * First argument is symbol (string) for the quote. Examples: AAPL, MSFT, JNJ, GOOG.
@@ -322,7 +363,7 @@
             var tickerList = ["GOOG", "AAPL", "MSFT", "FB", "TWTR", "YHOO", "INTC", "CSCO"];
 
             tickerList.forEach(function (ticker) {
-                new Markit.QuoteService(ticker, function (jsonResult) {
+                new QuoteService(ticker, function (jsonResult) {
 
                     //this.clearResult();
 
@@ -331,14 +372,14 @@
                         return;
                     }
 
-                    this.success(jsonResult);
+                    this.TickerSuccess(jsonResult);
 
                 });
             });
 
         });
 
-        Markit.QuoteService.prototype.success = function (jsonResult) {
+        QuoteService.prototype.TickerSuccess = function (jsonResult) {
             console.log('success');
             var ChangePercent = Math.floor((jsonResult.ChangePercent) * 100);
 
@@ -360,13 +401,6 @@
             $("#quote").after($container);
             $container.fadeIn('fast');
 
-        };
-
-        Markit.QuoteService.prototype.formatChgPct = function (chg) {
-            console.log('formatChgPct');
-            //the quote API returns negative numbers already,
-            //so we just need to add the + sign to positive numbers
-            return (chg <= 0) ? chg.toFixed(2) : "+" + chg.toFixed(2);
         };
 
     </script>
