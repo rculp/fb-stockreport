@@ -53,6 +53,7 @@
                 showHideStatus();
                 getProfileImage();
                 news();
+                events();
             } else if (response.status === 'not_authorized' ) {
                 document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">Log Out</button>";
                 showHideStatus();
@@ -84,6 +85,7 @@
 
     window.onload = function () {
         checkLogInStatus();
+        
     }
     
 </script>
