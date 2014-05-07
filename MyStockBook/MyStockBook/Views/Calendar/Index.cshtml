@@ -13,6 +13,7 @@
 
         $(document).ready(function () {
 
+
             var d = new Date();
 
             var month = d.getMonth() + 1;
@@ -31,15 +32,45 @@
                 },
                 defaultDate: output,
                 editable: false,
-                events: {
-                    url: '',
-                    error: function () {
-                        $('#script-warning').show();
-                    }
-                },
-                loading: function (bool) {
-                    $('#loading').toggle(bool);
-                }
+                events: [
+				{
+				    title: 'All Day Event',
+				    start: output
+				},
+				{
+				    title: 'Long Event',
+				    start: '2014-01-07',
+				    end: '2014-01-10'
+				},
+				{
+				    id: 999,
+				    title: 'Repeating Event',
+				    start: '2014-01-09T16:00:00'
+				},
+				{
+				    id: 999,
+				    title: 'Repeating Event',
+				    start: '2014-01-16T16:00:00'
+				},
+				{
+				    title: 'Meeting',
+				    start: '2014-01-12T10:30:00',
+				    end: '2014-01-12T12:30:00'
+				},
+				{
+				    title: 'Lunch',
+				    start: '2014-01-12T12:00:00'
+				},
+				{
+				    title: 'Birthday Party',
+				    start: '2014-01-13T07:00:00'
+				},
+				{
+				    title: 'Click for Google',
+				    url: 'http://google.com/',
+				    start: '2014-01-28'
+				}
+                ]
             });
 
         });
@@ -90,5 +121,8 @@
 
     <div id='loading'></div>
     <div id='calendar'></div>
-}
 
+    <div id="addPhoto" style="float:left;">
+        <button onclick="events()"> Add Photo</button>
+    </div>
+}
