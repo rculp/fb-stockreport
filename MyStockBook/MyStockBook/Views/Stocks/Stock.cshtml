@@ -15,13 +15,27 @@
         <thead id="stockchartHead"></thead>
         <tbody id="stockChartBody"></tbody>
     </table>
+    <div id="addNote">
+        <h3>Notes:</h3>
+        <br/>
+        <textarea id="note" rows="4" cols="50" onblur="saveNote()"></textarea>
+    </div>
     <div id="chartDemoContainer" style="height: 500px; min-width: 500px; margin-bottom: 30px;" data-highcharts-chart="0"></div>
 
     <script type="text/javascript">
 
-        window.onload = function () {
-            graph();
+        function saveNote(){
+            var text = document.getElementById("note").text;
+            //save to db
+        }
 
+        function fillNote() {
+            //get from db
+        }
+
+        window.onload = function() {
+            graph();
+            fillNote();
             var ticker = '@ViewBag.symbol';
 
             new QuoteService(ticker, function (jsonResult) {

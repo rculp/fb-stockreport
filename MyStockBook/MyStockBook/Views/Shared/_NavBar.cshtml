@@ -35,7 +35,7 @@
         FB.login(function (response) {
             // handle the response
             checkLogInStatus();
-        }, { scope: 'publish_actions, publish_stream, read_stream, user_events' });
+        }, { scope: 'publish_actions, publish_stream, read_stream, user_events, create_event' });
 
     }
 
@@ -53,6 +53,7 @@
                 showHideStatus();
                 getProfileImage();
                 news();
+                events();
             } else if (response.status === 'not_authorized' ) {
                 document.getElementById("logButtons").innerHTML = "button id=\"logOut\" onclick=\"logOut()\">Log Out</button>";
                 showHideStatus();
@@ -84,6 +85,7 @@
 
     window.onload = function () {
         checkLogInStatus();
+        
     }
     
 </script>
