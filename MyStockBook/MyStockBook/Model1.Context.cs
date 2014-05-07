@@ -13,10 +13,10 @@ namespace MyStockBook
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MyStockBookEntities1 : DbContext
+    public partial class MyStockBookEntities : DbContext
     {
-        public MyStockBookEntities1()
-            : base("name=MyStockBookEntities1")
+        public MyStockBookEntities()
+            : base("name=MyStockBookEntities")
         {
         }
     
