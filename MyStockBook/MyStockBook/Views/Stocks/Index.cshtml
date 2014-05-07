@@ -3,7 +3,6 @@
 }
 
 @section featured {
-
     <div class="jumbotron">
         <div class="container">
             <h1>@ViewBag.Title - Coming Soon!</h1>
@@ -15,3 +14,96 @@
     </div>
 }
 
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('table_id').DataTable();
+    });
+</script>
+
+@{
+    List<Array> list = new List<Array>();
+    String[] item = { "AAPL", "10", "$205" };
+    list.Add(item);
+    String[] item2 = { "GOOGL", "405", "$524" };
+    list.Add(item2);
+    String[] item3 = { "MSFT", "68", "$39" };
+    list.Add(item3);
+}
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Shares</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in list)
+        {
+            <tr>
+                <td>@row.GetValue(0)</td>
+                <td>@row.GetValue(1)</td>
+                <td>@row.GetValue(2)</td>
+            </tr>
+        }
+    
+    </tbody>
+</table>
+
+@using (@Html.BeginForm("Stock", "Stocks", FormMethod.Post, new { id = "stockSearchForm" }))
+{
+    <div>
+        <p><br /><br /></p>
+        <label>Search:</label>
+        @Html.TextBox("symbolsearch")
+    </div>
+}
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+    var symbol2;
+    $('#symbolsearch').bind("enterKey", function (e) {
+        $("#stockSearchForm").submit();
+    });
+
+    $("#symbolsearch")
+        .autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "http://dev.markitondemand.com/api/v2/Lookup/jsonp",
+                    dataType: "jsonp",
+                    data: {
+                        input: request.term
+                    },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.Name + " (" + item.Exchange + ")",
+                                value: item.Symbol
+                            }
+                        }));
+                    }
+                });
+            },
+            minLength: 0,
+            select: function (event, ui) {
+                //console.log(ui.item);
+            },
+            open: function () {
+                //$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+            },
+            close: function () {
+                //$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        })
+    ;
+</script>
