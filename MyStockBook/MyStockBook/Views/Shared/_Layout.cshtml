@@ -317,7 +317,7 @@
             var tickerList = ["GOOG", "AAPL", "MSFT", "FB", "TWTR", "YHOO", "INTC", "CSCO"];
 
             tickerList.forEach(function (ticker) {
-                new Markit.QuoteService(ticker, function (jsonResult) {
+                new QuoteService(ticker, function (jsonResult) {
 
                     //this.clearResult();
 
@@ -326,14 +326,14 @@
                         return;
                     }
 
-                    this.success(jsonResult);
+                    this.TickerSuccess(jsonResult);
 
                 });
             });
 
         });
 
-        Markit.QuoteService.prototype.success = function (jsonResult) {
+        QuoteService.prototype.TickerSuccess = function (jsonResult) {
             console.log('success');
             var ChangePercent = Math.floor((jsonResult.ChangePercent) * 100);
 
@@ -355,13 +355,6 @@
             $("#quote").after($container);
             $container.fadeIn('fast');
 
-        };
-
-        Markit.QuoteService.prototype.formatChgPct = function (chg) {
-            console.log('formatChgPct');
-            //the quote API returns negative numbers already,
-            //so we just need to add the + sign to positive numbers
-            return (chg <= 0) ? chg.toFixed(2) : "+" + chg.toFixed(2);
         };
 
     </script>
