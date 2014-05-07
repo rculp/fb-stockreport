@@ -266,7 +266,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MyStockBookEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MyStockBookEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Events" EntityType="Self.Event" />
           <EntitySet Name="RecurringTypes" EntityType="Self.RecurringType" />
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
@@ -299,7 +299,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MyStockBookModelStoreContainer" CdmEntityContainer="MyStockBookEntities1">
+        <EntityContainerMapping StorageEntityContainer="MyStockBookModelStoreContainer" CdmEntityContainer="MyStockBookEntities">
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="MyStockBookModel.Event">
               <MappingFragment StoreEntitySet="Event">
