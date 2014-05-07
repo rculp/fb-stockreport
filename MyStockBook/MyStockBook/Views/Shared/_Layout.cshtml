@@ -159,6 +159,28 @@
             $('#calendar').fullCalendar('refetchEvents');
         }
 
+
+        function postEvent() {
+
+
+            var new_event = {
+                name: document.getElementById("event_name").value,
+                description: document.getElementById("event_description").value,
+                location: document.getElementById("event_location").value,
+                start_time: document.getElementById("event_start").value, // Example Start Date
+                end_time: document.getElementById("event_end").value // Example End Date
+            };
+
+
+            FB.api('/me/events', 'post', new_event, function (result) {
+                console.log("Check3");
+                console.log(result);
+            });
+            
+            calenderReload();
+        }
+
+
         function events() {
             var fEvents = [];
             FB.api("me/events/not_replied?fields=name,start_time,end_time,id", function (response) {
@@ -169,17 +191,7 @@
                         fEvents.push(new eventObject(response.data[i].name, response.data[i].start_time, response.data[i].end_time, response.data[i].id));
                     }
                 }
-            });
-
-            FB.api("me/events/created?fields=name,start_time,end_time,id", function (response) {
-                if (response && !response.error) {
-                    for (var i = 0; i < response.data.length; i++) {
-                        var eventString = "title: '" + response.data[i].name + "',\n" + "start: '" + response.data[i].start_time + "',\n" + "end: '" + response.data[i].end_time + "',\n" + "id: '" + response.data[i].id + "'";
-                        //console.log(eventString);
-                        fEvents.push(new eventObject(response.data[i].name, response.data[i].start_time, response.data[i].end_time, response.data[i].id));
-                    }
-                }
-            });
+            })
 
             FB.api("me/events/maybe?fields=name,start_time,end_time,id", function (response) {
                 if (response && !response.error) {
@@ -195,7 +207,7 @@
                 if (response && !response.error) {
                     for (var i = 0; i < response.data.length; i++) {
                         var eventString = "title: '" + response.data[i].name + "',\n" + "start: '" + response.data[i].start_time + "',\n" + "end: '" + response.data[i].end_time + "',\n" + "id: '" + response.data[i].id + "'";
-                        //console.log(eventString);
+                        console.log(eventString);
                         fEvents.push(new eventObject(response.data[i].name, response.data[i].start_time, response.data[i].end_time, response.data[i].id));
                     }
                 }

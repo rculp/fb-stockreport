@@ -29,5 +29,24 @@
 
     <div id='calendar'></div>
 
+
+<form>
+    Event Name: <input type="text" id="event_name"><br>
+    Description: <input type="text" id="event_description"><br>
+    Location: <input type="text" id="event_location"><br>
+    Start: <input type="text" id="event_start"><br>
+    End: <input type="text" id="event_end">
+    <button id="submit" onclick="submitEvent()">Submit</button>
+</form>
+
+
+    <script>
+        function submitEvent() {
+            postEvent();
+        }
+    </script>
+
+
+
     
 }
