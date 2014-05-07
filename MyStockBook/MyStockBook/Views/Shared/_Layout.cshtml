@@ -148,17 +148,46 @@
             });
         }
 
+        function eventObject(name, start_time, end_time, id) {
+            this.title = name;
+            this.start = start_time;
+            this.end = end_time
+            this.id = id;
+        }
+
         function events() {
+            var fEvents = [];
             FB.api("me/events/not_replied?fields=name,start_time,end_time,id", function (response) {
-                
                 if (response && !response.error) {
                     for (var i = 0; i < response.data.length; i++) {
                         var eventString = "title: '" + response.data[i].name + "',\n" + "start: '" + response.data[i].start_time + "',\n" + "end: '" + response.data[i].end_time + "',\n" + "id: '" + response.data[i].id + "'";
                         console.log(eventString);
+                        fEvents.push(new eventObject(response.data[i].name, response.data[i].start_time, response.data[i].end_time, response.data[i].id));
                     }
                 }
-                
             });
+
+            var d = new Date();
+
+            var month = d.getMonth() + 1;
+            var day = d.getDate();
+
+            var output = d.getFullYear() + '-' +
+                (('' + month).length < 2 ? '0' : '') + month + '-' +
+                (('' + day).length < 2 ? '0' : '') + day;
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultDate: output,
+                editable: false,
+                events: fEvents
+            });
+            //$('#calendar').fullCalendar.events = events;
+            //alert($('#calendar').fullCalendar.events);
         }
 
     </script>
